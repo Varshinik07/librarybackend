@@ -22,4 +22,15 @@ public class LibraryController {
     public List<LibraryModel> viewbook(){
         return (List<LibraryModel>) dao.findAll();
     }
+    @CrossOrigin(origins = "*")
+    @PostMapping("/deletebook")
+    public String deletebook(@RequestBody LibraryModel library){
+        dao.deleteById(library.getId());
+        return "{status:'success'}";
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping("/searchbook")
+    public List<LibraryModel> searchbook(@RequestBody LibraryModel library){
+        return (List<LibraryModel>) dao.searchbook(library.getBookname());
+    }
 }
