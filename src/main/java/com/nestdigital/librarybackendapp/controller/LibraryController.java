@@ -3,6 +3,7 @@ package com.nestdigital.librarybackendapp.controller;
 import com.nestdigital.librarybackendapp.dao.LibraryDao;
 import com.nestdigital.librarybackendapp.model.LibraryModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +33,12 @@ public class LibraryController {
     @PostMapping("/searchbook")
     public List<LibraryModel> searchbook(@RequestBody LibraryModel library){
         return (List<LibraryModel>) dao.searchbook(library.getBookname());
+    }
+    @CrossOrigin(origins = "*")
+    @Transactional
+    @PostMapping("/editbook")
+    public String editbook(@RequestBody LibraryModel library){
+        dao.editbook(library.getAuthorname(),library.getBookname(),library.getDescription(),library.getId());
+        return "{status:'success'}";
     }
 }
